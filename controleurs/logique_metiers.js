@@ -14,8 +14,9 @@ const fs = require('fs');
 
 exports.searchShooesSraping = (req, res, next) => {
     (async () => {
-        let choix = "basket";
-        let link = `https://www.google.com/search?q=${choix}&hl=fr&source=lnms&tbm=shop&ei=3uYhZPPNLd3YkdUPiJK3-Ac&start=80&sa=X&ved=2ahUKEwiH04u82fz9AhVfVKQEHT_IBsgQ_AUoAXoECAMQAw&biw=1920&bih=929`
+        let choix = "talon";
+        let start= 180;
+        let link = `https://www.google.com/search?q=${choix}&hl=fr&source=lnms&tbm=shop&ei=3uYhZPPNLd3YkdUPiJK3-Ac&start=${start}&sa=X&ved=2ahUKEwiH04u82fz9AhVfVKQEHT_IBsgQ_AUoAXoECAMQAw&biw=1920&bih=929`
         console.log(link);
         try {
             await ps.initiate({ millisecondsTimeoutSourceRequestCount: 30000 }, true); 
@@ -25,7 +26,7 @@ exports.searchShooesSraping = (req, res, next) => {
             $('.VOo31e').each(async (i, el) => {
                 const url = $(el).find(".ArOc1c").children().first().attr('src');
                 images.push(url);
-                const path = `./images/${choix}/${i+80}.png`;
+                const path = `./images/${choix}/${i+start}.png`;
                 const writer = fs.createWriteStream(path);
                 const response = await axios({
                     url,
